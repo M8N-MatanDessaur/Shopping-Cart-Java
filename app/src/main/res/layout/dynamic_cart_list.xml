@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="5px"
+        android:paddingVertical="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logo"
+            android:id="@+id/prod_img"/>
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="Item"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:id="@+id/prod_name"/>
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="Price"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:id="@+id/prod_price"/>
+
+        <Button
+            android:id="@+id/increase_btn"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:text="+"
+            android:textAlignment="center"
+            android:textColor="@color/purple_200"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/quantity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="1"/>
+
+        <Button
+            android:id="@+id/decrease_btn"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/purple_200"
+            android:textSize="20dp"
+            android:text="-"
+            android:background="@android:color/transparent"/>
+
+        <Button
+            android:layout_width="50dp"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="match_parent"
+            android:text="Del"
+            android:id="@+id/del"/>
+    </LinearLayout>
+</RelativeLayout>

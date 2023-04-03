@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/group_home_cart">
+    <item
+        android:id="@+id/home_button"
+        android:text="Home"
+        android:title="Home" />
+    <item
+        android:id="@+id/cart_button"
+        android:text="Cart"
+        android:title="Cart" />
+    </group>
+</menu>

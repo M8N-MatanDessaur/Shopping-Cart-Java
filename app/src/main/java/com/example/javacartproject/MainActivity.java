@@ -13,11 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.io.Serializable;
-
 public class MainActivity extends AppCompatActivity {
     // Declare
-    DatabaseHelper dbHelper;
+    ProductTableDataGateway dbHelper;
     SQLiteDatabase db;
 
     @Override
@@ -26,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Create an instance of DatabaseHelper class & get a Read/Write Database
-        dbHelper = new DatabaseHelper(this);
+        dbHelper = new ProductTableDataGateway(this);
         db = dbHelper.getWritableDatabase();
 
         // Resets & Seed Database
-        db.delete(DatabaseHelper.PRODUCT_TABLE_NAME, null, null);
+        db.delete(ProductTableDataGateway.PRODUCT_TABLE_NAME, null, null);
         SeedDatabase();
     }
 
@@ -42,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.main_menu, menu);
 
         // Query the database to get distinct categories (All categories)
-        Cursor cursor = db.query(true, DatabaseHelper.PRODUCT_TABLE_NAME, new String[]{DatabaseHelper.PRODUCT_COLUMN_CATEGORY},
+        Cursor cursor = db.query(true, ProductTableDataGateway.PRODUCT_TABLE_NAME, new String[]{ProductTableDataGateway.PRODUCT_COLUMN_CATEGORY},
                 null, null, null, null, null, null);
 
         // Iterate through the cursor and add distinct categories to the menu as items
         int index = 0;
         while (cursor.moveToNext()) {
-            @SuppressLint("Range") String category = cursor.getString(cursor.getColumnIndex(DatabaseHelper.PRODUCT_COLUMN_CATEGORY));
+            @SuppressLint("Range") String category = cursor.getString(cursor.getColumnIndex(ProductTableDataGateway.PRODUCT_COLUMN_CATEGORY));
             menu.add(Menu.NONE, Menu.FIRST + index, index, category);
             index++;
         }
@@ -73,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
 
             // Cart
             case R.id.cart_button:
-                intent = new Intent(this, CartList.class);
+                intent = new Intent(this, CartActivity.class);
                 startActivity(intent);
                 break;
 
             // Any selected categories
             // add the item title/category and the database name in extra
             default:
-                intent = new Intent(this, ShoppingList.class);
+                intent = new Intent(this, ProductsListActivity.class);
                 intent.putExtra("category", item.getTitle());
                 intent.putExtra("databaseName", dbHelper.getDatabaseName());
                 startActivity(intent);
@@ -93,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
     public void SeedDatabase() {
         // Create an array of all products
         Product[] products = {
-                new Product("Fruits&Vegetable", "Apple", 0.99, R.drawable.apple),
-                new Product("Fruits&Vegetable", "Banana", 0.49, R.drawable.banana),
-                new Product("Fruits&Vegetable", "Carrot", 0.29, R.drawable.carrot),
-                new Product("Fruits&Vegetable", "Lettuce", 0.89, R.drawable.lettuce),
+                new Product("Fruits-&-Vegetable", "Apple", 0.99, R.drawable.apple),
+                new Product("Fruits-&-Vegetable", "Banana", 0.49, R.drawable.banana),
+                new Product("Fruits-&-Vegetable", "Carrot", 0.29, R.drawable.carrot),
+                new Product("Fruits-&-Vegetable", "Lettuce", 0.89, R.drawable.lettuce),
                 new Product("Dairy", "Milk", 2.99, R.drawable.milk),
                 new Product("Dairy", "Cheese", 3.99, R.drawable.cheese),
                 new Product("Dairy", "Creamer", 3.99, R.drawable.creamer),
@@ -113,14 +111,14 @@ public class MainActivity extends AppCompatActivity {
         // Insert the products into the database
         for (Product product : products) {
             ContentValues values = product.getContentValues();
-            db.insert(DatabaseHelper.PRODUCT_TABLE_NAME, null, values);
+            db.insert(ProductTableDataGateway.PRODUCT_TABLE_NAME, null, values);
         }
     }
 
     // Go to cart button
     public void to_cart(View view) {
         Intent intent;
-        intent = new Intent (this, CartList.class);
+        intent = new Intent (this, CartActivity.class);
         startActivity(intent);
     }
 }

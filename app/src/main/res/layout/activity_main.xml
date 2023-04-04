@@ -48,7 +48,7 @@
             <TextView
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:text="LePanier est une application mobile de panier d'achat (shopping) conçue pour simplifier et optimiser l'expérience d'achat en ligne pour les utilisateurs."/>
+                android:text="LePanier is a mobile shopping cart application designed to simplify and optimize the online shopping experience for users."/>
         </LinearLayout>
 
         <LinearLayout
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:text="Appuiez sur [ ⋮ ] pour ouvrir la liste des categories et ajouter l'article choisi en appuiant [ajouter]. Vous pourriez ensuite appuier sur le panier pour voir votre total"/>
+                android:text="Press [ ⋮ ] to open the category list and add the item chosen by pressing [add]. You could then tap on the cart to see your total, increase, decrease or delete items from your cart"/>
 
             <Button
                 android:layout_width="80dp"

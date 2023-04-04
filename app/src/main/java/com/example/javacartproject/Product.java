@@ -65,18 +65,22 @@ public class Product {
     }
 
     // hashCode method
+    // Why  : Creates a unique number that represents the object to compare it
+    // Uses : To see if it is already in cart [added to cart]
     @Override
     public int hashCode() {
         return Objects.hash(category, name, price, image);
     }
 
     // Convert Product to ContentValues
+    // Why  : To make the object Database-safe
+    // Uses : To add object in Database
     public ContentValues getContentValues() {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.PRODUCT_COLUMN_CATEGORY, category);
-        values.put(DatabaseHelper.PRODUCT_COLUMN_NAME, name);
-        values.put(DatabaseHelper.PRODUCT_COLUMN_PRICE, price);
-        values.put(DatabaseHelper.PRODUCT_COLUMN_IMAGE, image);
+        values.put(ProductTableDataGateway.PRODUCT_COLUMN_CATEGORY, category);
+        values.put(ProductTableDataGateway.PRODUCT_COLUMN_NAME, name);
+        values.put(ProductTableDataGateway.PRODUCT_COLUMN_PRICE, price);
+        values.put(ProductTableDataGateway.PRODUCT_COLUMN_IMAGE, image);
         return values;
     }
 }

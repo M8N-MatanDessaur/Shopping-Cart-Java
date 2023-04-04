@@ -1,9 +1,5 @@
 package com.example.javacartproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,22 +9,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ShoppingList extends MainActivity {
-    // Declare variables
-    ArrayList<Product> prodArray;
-    ProductsAdapter adapter;
-    TextView categoryTitle;
-    ListView prodList;
-    SQLiteDatabase db;
+public class ProductsListActivity extends MainActivity {
+    // Declare
+    private ArrayList<Product> prodArray;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopping_list);
 
-        // Initialize variables
-        categoryTitle = findViewById(R.id.category_title);
-        prodList = findViewById(R.id.prod_list);
+        // Initialize
+        TextView categoryTitle = findViewById(R.id.category_title);
+        ListView prodList = findViewById(R.id.prod_list);
         prodArray = new ArrayList<>();
 
         // Get the intent Extras (Database name and item-category)
@@ -47,7 +40,7 @@ public class ShoppingList extends MainActivity {
         categoryTitle.setText(selectedCategory);
 
         // Initialize List Adapter and set it to be the adapter to the product list
-        adapter = new ProductsAdapter(this, R.layout.dynamic_product_list, prodArray);
+        ProductsAdapter adapter = new ProductsAdapter(this, R.layout.dynamic_product_list, prodArray);
         prodList.setAdapter(adapter);
 
         // Load products from the database
@@ -57,33 +50,27 @@ public class ShoppingList extends MainActivity {
     // Load products from database with the selected category
     private void loadProductsFromDatabase(String selectedCategory) {
 
-        // Define the columns to retrieve (Select ALL)
-        String[] projection = {
-                DatabaseHelper.PRODUCT_COLUMN_CATEGORY,
-                DatabaseHelper.PRODUCT_COLUMN_NAME,
-                DatabaseHelper.PRODUCT_COLUMN_PRICE,
-                DatabaseHelper.PRODUCT_COLUMN_IMAGE
+        // Define the columns to retrieve (Select ALL [Not the _id])
+        String[] selectAll = {
+                ProductTableDataGateway.PRODUCT_COLUMN_CATEGORY,
+                ProductTableDataGateway.PRODUCT_COLUMN_NAME,
+                ProductTableDataGateway.PRODUCT_COLUMN_PRICE,
+                ProductTableDataGateway.PRODUCT_COLUMN_IMAGE
         };
 
         // Define the WHERE clause [Where Category = selectedCategory]
-        String selection = DatabaseHelper.PRODUCT_COLUMN_CATEGORY + " = ?";
-        String[] selectionArgs = {selectedCategory};
+        String whereCategory = ProductTableDataGateway.PRODUCT_COLUMN_CATEGORY + " = ?";
+        String[] category = {selectedCategory};
 
         // Perform the query on PRODUCT_TABLE_NAME
-        try (Cursor cursor = db.query(DatabaseHelper.PRODUCT_TABLE_NAME,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null)) {
+        try (Cursor cursor = db.query(ProductTableDataGateway.PRODUCT_TABLE_NAME,selectAll,whereCategory,category,null,null,null)) {
 
-            // Iterate over the query results and add the products to the array
+            // Iterate over the results and add the products to the prodArray
             while (cursor.moveToNext()) {
-                String prodCategory = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.PRODUCT_COLUMN_CATEGORY));
-                String prodName = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.PRODUCT_COLUMN_NAME));
-                double prodPrice = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.PRODUCT_COLUMN_PRICE));
-                int prodImage = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.PRODUCT_COLUMN_IMAGE));
+                String prodCategory = cursor.getString(cursor.getColumnIndexOrThrow(ProductTableDataGateway.PRODUCT_COLUMN_CATEGORY));
+                String prodName = cursor.getString(cursor.getColumnIndexOrThrow(ProductTableDataGateway.PRODUCT_COLUMN_NAME));
+                double prodPrice = cursor.getDouble(cursor.getColumnIndexOrThrow(ProductTableDataGateway.PRODUCT_COLUMN_PRICE));
+                int prodImage = cursor.getInt(cursor.getColumnIndexOrThrow(ProductTableDataGateway.PRODUCT_COLUMN_IMAGE));
 
                 // Create a new Product instance and add it to the prodArray
                 prodArray.add(new Product(prodCategory, prodName, prodPrice, prodImage));

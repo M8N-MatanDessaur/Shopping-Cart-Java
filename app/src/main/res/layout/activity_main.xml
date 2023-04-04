@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100px"
                 android:textSize="30dp"
-                android:text="Mode d'emploi"/>
+                android:text="How to use"/>
 
             <TextView
                 android:layout_width="300dp"

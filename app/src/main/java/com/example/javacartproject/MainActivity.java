@@ -15,7 +15,7 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     // Declare
-    ProductTableDataGateway dbHelper;
+    ProductTableDataGateway dataGateway;
     SQLiteDatabase db;
 
     @Override
@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Create an instance of DatabaseHelper class & get a Read/Write Database
-        dbHelper = new ProductTableDataGateway(this);
-        db = dbHelper.getWritableDatabase();
+        // Create an instance of ProductTableDataGateway class & get a Read/Write Database
+        dataGateway = new ProductTableDataGateway(this);
+        db = dataGateway.getWritableDatabase();
 
         // Resets & Seed Database
         db.delete(ProductTableDataGateway.PRODUCT_TABLE_NAME, null, null);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 intent = new Intent(this, ProductsListActivity.class);
                 intent.putExtra("category", item.getTitle());
-                intent.putExtra("databaseName", dbHelper.getDatabaseName());
+                intent.putExtra("databaseName", dataGateway.getDatabaseName());
                 startActivity(intent);
                 break;
         }

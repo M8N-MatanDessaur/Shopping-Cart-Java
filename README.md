@@ -23,8 +23,4 @@ Users can view a list of their cart items and the total cost of their cart.
 > or remove products from their cart. The total cost of their cart will be 
 > displayed at the bottom of the screen.
 
-### Contributing
-> Contributions to the JavaCartProject application are welcome. 
-> To contribute, please fork the project repository, make your changes, and submit a pull request.
-
 #### Made by Matan Dessaur
